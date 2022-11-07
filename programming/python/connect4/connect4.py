@@ -2,13 +2,22 @@
 # 07.11.2022 Leon Kohlhaußen
 # contributors Janneck Lehmann
 
-
+#<<<<<<<<<<< imports >>>>>>>>>>>>>>>>>
 from colorama import * #https://hellocoding.de/blog/coding-language/python/farben-im-terminal
 init(autoreset=True) #there is no need of reset every color effekt in the code duo this setting
 
 
+#<<<<<<<<<< variables >>>>>>>>>>>>>>>>>
+gamenotover = True
+player = "player1"
 
-
+# welcome message when game is started
+def startMessage():
+    print("Welcome to 4wins!")
+    print("the rules:")
+    print("1. You can only place a stone in a column that is not full.")
+    print("2. You can only put a stone in the lowest row of a column. ")
+    print("3. You can only win if you have 4 stones in a row, column or diagonal.")
 
 
 #define the board as a list in a 8x8 matrix
@@ -33,8 +42,50 @@ def board():
     print("|",grid[48],"|",grid[49],"|",grid[50],"|",grid[51],"|",grid[52],"|",grid[53],"|",grid[54],"|",grid[55],"|")
     print("+----+----+----+----+----+----+----+----+")
     print("|",grid[56],"|",grid[57],"|",grid[58],"|",grid[59],"|",grid[60],"|",grid[61],"|",grid[62],"|",grid[63],"|")
+    print("+----+----+----+----+----+----+----+----+")
     print(Back.GREEN + "| 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  |")
 
+
+#switching player after each move 
+def switchPlayer():
+    global player
+    if player == "player1":
+        player = "player2"
+    else:
+        player = "player1"
+
+#player input for column question and validation
+def playerinput():
+    while True:
+        print(Back.WHITE + player + " choose a column")
+        column = input(Fore.BLUE + ">>> ")
+        try:
+            column = int(column)
+            if column > 8 or column < 1:
+                print(Fore.RED + "please enter a number between 1 and 8")
+            else:
+                break
+        except ValueError:
+            print(Fore.RED + "please enter a number")  
+
+#player choose a column
+def move():
+    while gamenotover:
+        playerinput()
+        switchPlayer()
+        
+
+
+#grid will be filled with the players color when this is an right move
+
+
+
+
+
+
+
+
+#<<<<<<<<<<<<<<< wincheck >>>>>>>>>>>>>>>>>>
 
 # check if the game is won
 # check if a row is full
@@ -44,10 +95,6 @@ def board():
 
 
 
-# welcome message when game is started
-print("Welcome to 4wins!")
-print("the rules:")
-print("1. You can only place a stone in a column that is not full.")
-print("2. You can only put a stone in the lowest row of a column. ")
-print("3. You can only win if you have 4 stones in a row, column or diagonal.")
+startMessage()
 board()
+move()

@@ -28,9 +28,32 @@ def startMessage():
 # define the board as a list in a 8x8 matrix
 def board():
     lf = " 🔴 "  # lf = leeres feld
+#create list for the 8x8 gameboard
+def createGrid():
+    lf = "  " #lf = leeres feld
+    global grid
     grid = []
     for x in range(64):
         grid.append(lf)
+
+
+
+#upddate every single column after each move
+def updateColumn():
+    global colum1, colum2, colum3, colum4, colum5, colum6, colum7, colum8
+    colum1 = [grid[0],grid[8],grid[16],grid[24],grid[32],grid[40],grid[48],grid[56]]
+    colum2 = [grid[1],grid[9],grid[17],grid[25],grid[33],grid[41],grid[49],grid[57]]
+    colum3 = [grid[2],grid[10],grid[18],grid[26],grid[34],grid[42],grid[50],grid[58]]
+    colum4 = [grid[3],grid[11],grid[19],grid[27],grid[35],grid[43],grid[51],grid[59]]
+    colum5 = [grid[4],grid[12],grid[20],grid[28],grid[36],grid[44],grid[52],grid[60]]
+    colum6 = [grid[5],grid[13],grid[21],grid[29],grid[37],grid[45],grid[53],grid[61]]
+    colum7 = [grid[6],grid[14],grid[22],grid[30],grid[38],grid[46],grid[54],grid[62]]
+    colum8 = [grid[7],grid[15],grid[23],grid[31],grid[39],grid[47],grid[55],grid[63]]
+
+
+
+#shows the gameboard and refreshes the colums after each move
+def board():
     print("+----+----+----+----+----+----+----+----+")
     print("|", grid[0], "|", grid[1], "|", grid[2], "|", grid[3],
           "|", grid[4], "|", grid[5], "|", grid[6], "|", grid[7], "|")
@@ -59,18 +82,8 @@ def board():
     print(Back.GREEN + "| 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  |")
 
 
-# internal grid for the game to run in the background
 
-# start the game with a random player
-def randomplayer():
-    global player
-    player = random.choice(["player1", "player2"])
-    print(Fore.YELLOW + player + " starts the game")
-    move()
-
-# switching player after each move
-
-
+#switching player after each move 
 def switchPlayer():
     global player
     if player == "player1":
@@ -97,6 +110,14 @@ def playerinput():
 # player choose a column
 
 
+#check if the selected column is available
+def checkColumn():
+    if colum1[1]
+
+#??????????? zweite liste paralel zur anzeigeliste muss erstellt werden, asbosnten muss symbol in die Liste eingesetzt werden
+
+
+#player choose a column
 def move():
     while gamenotover:
         playerinput()

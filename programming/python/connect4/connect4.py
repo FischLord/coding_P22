@@ -38,6 +38,9 @@ def printGameBoard():
                 print(" ", gameBoard[x][y], end="  |")
     print("\n   +----+----+----+----+----+----+----+")
 
+    #?? now we have coordinates for the gameboard and it is easy to check if a player has won
+    #?? +3x or +3y or +3xy or -3xy
+
 
 
 

@@ -28,7 +28,7 @@ def printGameBoard():
     print("\n     1    2    3    4    5    6    7  ", end="")
     for x in range(rows):
         print("\n   +----+----+----+----+----+----+----+")
-        print(x, " |", end="")
+        print(x + 1, " |", end="")
         for y in range(columns):
             if (gameBoard[x][y] == "🔵"):
                 print("", gameBoard[x][y], end=" |")
@@ -169,3 +169,4 @@ def move():
 # check if the game is a draw
 
 
+printGameBoard()

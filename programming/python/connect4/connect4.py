@@ -11,7 +11,7 @@ init(autoreset=True)
 
 
 # <<<<<<<<<< variables >>>>>>>>>>>>>>>>>
-gamenotover = True
+won = False
 players = ["🟡", "🔴"] 
 gameBoard = [
             ["", "", "", "", "", "", ""],   #7 collumns and 6 rows
@@ -96,66 +96,107 @@ def playerinput():
                 break
         except ValueError:
             print(Fore.RED + "please enter a number")
+        except IndexError():
+            print(Fore.RED + "please enter a number between 1 and 8")
 
 
             
 
 
-# player choose a column and the stone is placed in the lowest row of the column
+# player choose a column and the stone is placed in the lowest row of the column if the column is full the player has to choose another column
 def placeStone():
     for x in range(rows):
-        if gameBoard[x][pickedField-1] == "🟡" or gameBoard[x][pickedField-1] == "🔴":
-            gameBoard[x-1][pickedField-1] = players[0]
-            print("choose another column")
+        if gameBoard[0][pickedField-1] == "🟡" or gameBoard[0][pickedField-1] == "🔴":
+            print(Fore.RED + "this column is full, please choose another column")
             playerinput()
+        elif gameBoard[x][pickedField-1] == "🟡" or gameBoard[x][pickedField-1] == "🔴":
+            gameBoard[x-1][pickedField-1] = players[0]
             break
         elif x == 5:
             gameBoard[x][pickedField-1] = players[0]
             break
-
-
-
-# if the column is full the player has to choose another column
-
-
-#check if the selected column is available
-# def checkColumn():
-#     if colum1[1]
-
-#??????????? zweite liste paralel zur anzeigeliste muss erstellt werden, asbosnten muss symbol in die Liste eingesetzt werden
-
-
-#player choose a column
-def move():
-    while gamenotover:
-        playerinput()
-        placeStone()
-        switchPlayer()
-
-# check if column is full and if not place a stone in the lowest row
-
-
-# grid will be filled with the players color when this is an right move
-
+    
 
 # <<<<<<<<<<<<<<< wincheck >>>>>>>>>>>>>>>>>>
 
-# check if the game is won
-# check if a row is full
-# check if a column is full
-# check if a diagonal is full
+        
+# check if a row has 4 stones in a row return win true
+def rowCheck():
+    rowCheck = False
+    for x in range(rows):
+        for y in range(columns-3):
+            if gameBoard[x][y] == gameBoard[x][y+1] == gameBoard[x][y+2] == gameBoard[x][y+3] == "🟡" or gameBoard[x][y] == gameBoard[x][y+1] == gameBoard[x][y+2] == gameBoard[x][y+3] == "🔴":
+                return True
+
+
+# check if a column has 4 stones in a row return win true
+def columnCheck():
+    columnCheck = False
+    for x in range(rows-3):
+        for y in range(columns):
+            if gameBoard[x][y] == gameBoard[x+1][y] == gameBoard[x+2][y] == gameBoard[x+3][y] == "🟡" or gameBoard[x][y] == gameBoard[x+1][y] == gameBoard[x+2][y] == gameBoard[x+3][y] == "🔴":
+                return True
+
+
+# check if diagonal from left to right has 4 stones in a row return win true
+def diagonalCheck1():
+    diagonalCheck1 = False
+    for x in range(rows-3):
+        for y in range(columns-3):
+            if gameBoard[x][y] == gameBoard[x+1][y+1] == gameBoard[x+2][y+2] == gameBoard[x+3][y+3] == "🟡" or gameBoard[x][y] == gameBoard[x+1][y+1] == gameBoard[x+2][y+2] == gameBoard[x+3][y+3] == "🔴":
+                return True  
+
+
+# check if diagonal from right to left has 4 stones in a row return win true
+def diagonalCheck2():
+    diagonalCheck2 = False
+    for x in range(rows-3):
+        for y in range(columns-3):
+            if gameBoard[x][y+3] == gameBoard[x+1][y+2] == gameBoard[x+2][y+1] == gameBoard[x+3][y] == "🟡" or gameBoard[x][y+3] == gameBoard[x+1][y+2] == gameBoard[x+2][y+1] == gameBoard[x+3][y] == "🔴":
+                return True
+
 # check if the game is a draw
+def drawCheck():
+    drawCheck = False
+    for x in range(rows):
+        for y in range(columns):
+            if gameBoard[x][y] == "🟡" or gameBoard[x][y] == "🔴":
+                return True
 
 
+# check who won the game and print the winner
+#def winMessage():
+#    if players[0] == "🟡":
+#        print(Fore.YELLOW + "yellow won")
+#    else:
+#        print(Fore.RED + "red won")
 
+# check if the game is won and print the winner
+def winCheck():
+    if rowCheck() == True or columnCheck() == True or diagonalCheck1() == True or diagonalCheck2() == True:
+        if players[0] == "🟡":
+            print(Fore.YELLOW + "yellow won")
+        else:
+            print(Fore.RED + "red won")
+        return won == True
+    else:
+        return won == False
 
+#not finished yet
+def mainGame():
+    startMessage()
+    randomPlayer()
+    while True:
+        playerinput()
+        placeStone()
+        winCheck()
+        printGameBoard()
+        if won == True:
+            print("game over")
+            break
+        if drawCheck() == False:
+            print(Fore.RED + "draw")
+            break
+        switchPlayer()
 
-startMessage()
-randomPlayer()
-printGameBoard()
-
-while gamenotover:
-    playerinput()
-    placeStone()
-    switchPlayer()
-    printGameBoard()
+mainGame()

@@ -1,4 +1,5 @@
-x=0
-fx = input("--> ")
+a = 0
+b = 0
 
-print(fx)
+if not a and b:
+    print("true")

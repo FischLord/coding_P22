@@ -12,7 +12,7 @@ init(autoreset=True)        # there is no need of reset every color effekt in th
 
 # <<<<<<<<<< variables >>>>>>>>>>>>>>>>>
 gamenotover = True
-player = ("🔴", "🟡")
+player = ("🔴")
 lf = ""   
 possibleLetters = ["1", "2", "3", "4", "5", "6", "7"]
 gameBoard = [[lf, lf, lf, lf, lf, lf, lf], [lf, lf, lf, lf, lf, lf, lf], [lf, lf, lf, lf, lf, lf, lf], [
@@ -44,7 +44,6 @@ def randomPlayer():
 
 #switching player after each move 
 def switchPlayer():
-    global player
     if player == "🔴":
         player = "🟡"
     else:
@@ -89,6 +88,7 @@ def checkColumFull():
 #player choose a column
 def move():
     while gamenotover:
+        printGameBoard()
         playerinput()
         switchPlayer()
 
@@ -96,7 +96,12 @@ def move():
 def set(xcolumn):
     for x in range (rows):
         if not gameBoard[xcolumn -1] == lf:
-            gameBoard[x-1][xcolumn -1] = player
+            gameBoard[xcolumn -1][x-1] = player
+            finished = True
+            break
+    if not finished:
+        gameBoard[xcolumn -1][6] = player
+    print("stone placed")
 # grid will be filled with the players color when this is an right move
 
 
@@ -107,3 +112,5 @@ def set(xcolumn):
 # check if a column is full
 # check if a diagonal is full
 # check if the game is a draw
+
+move()

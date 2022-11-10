@@ -1,8 +1,0 @@
-janneck,1234,
-jacob,1234,
-test,1234,
-paul,1234,
-Burkhard,Magic-Burkhard,
-helene,1234,
-test1,1234,
-denise,daspasswort,

@@ -17,7 +17,7 @@ def inputdetails(x):
 
 def test():
     inputdetails("n")
-    txttest = open("python\login\details.txt", "r")
+    txttest = open("python\login\accountinfo.txt", "r")
     for i in txttest:
         details = i.split(",")
         detailsname = details[0]
@@ -30,13 +30,13 @@ def test():
 def reg():
     test()
     inputdetails("p")
-    txt = open("python\login\details.txt", "a")
+    txt = open("python\login\accountinfo.txt", "a")
     txt.write(name+","+password+",\n")
     txt.close
     print("Registrierung erfolgreich!")
 
 def log(npvar):
-    txtlog = open("python\login\details.txt", "r")
+    txtlog = open("python\login\accountinfo.txt", "r")
     inputdetails(npvar)
     for i in txtlog:
         details = i.split(",")
@@ -58,6 +58,9 @@ def log(npvar):
 
 
 def login():
+    if not os.path.isfile("python\login\accountinfo.txt"):
+        txt = open("..\login\accountinfo.txt", "w")
+        txt.close
     print("Bitte wählen sie zwischen Login (log) und Registrieren (reg)! ")
     intention = input()
     if intention != "reg":

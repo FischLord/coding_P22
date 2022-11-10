@@ -166,13 +166,6 @@ def winVarCheck():
     columnCheck()
     rowCheck()
 
-# check who won the game and print the winner
-#def winMessage():
-#    if players[0] == "🟡":
-#        print(Fore.YELLOW + "yellow won")
-#    else:
-#        print(Fore.RED + "red won")
-
 # check if the game is won and print the winner
 def winCheck():
     global won
@@ -206,6 +199,3 @@ def mainGame():
         switchPlayer()
 
 mainGame()
-
-# startcommand
-# & C:/Users/leonk/AppData/Local/Programs/Python/Python310/python.exe c:/home/coding_P22/programming/python/connect4/connect4.py

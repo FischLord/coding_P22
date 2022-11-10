@@ -9,14 +9,15 @@ import os
 
 # main menu
 def mainMenu():
+    os.system('cls')
     # print big ASCII art
-    print("           _____   _____          _____  ______ ")
-    print("     /\   |  __ \ / ____|   /\   |  __ \|  ____|")
-    print("    /  \  | |__) | (___    /  \  | |__) | |__   ")
-    print("   / /\ \ |  _  /| |      / /\ \ | |  | |  __|  ")
-    print("  / ____ \| | \ \| |____ / ____ \| |__| | |____ ")
-    print(" /_/    \_\_|  \_\\_____/_/    \_\_____/|______|")
-    print("                                                ")
+    print("            _____    _____            _____   ______ ")
+    print("     /\    |  __ \  / ____|    /\    |  __ \ |  ____|")
+    print("    /  \   | |__) || |        /  \   | |  | || |__   ")
+    print("   / /\ \  |  _  / | |       / /\ \  | |  | ||  __|  ")
+    print("  / ____ \ | | \ \ | |____  / ____ \ | |__| || |____ ")
+    print(" /_/    \_\|_|  \_\ \_____|/_/    \_\|_____/ |______|")
+    print("                                                     ")
     print("Welcome to the main menu")
     print("1. Play a game")
     print("2. View your statistics")
@@ -30,37 +31,17 @@ def mainMenu():
         if mainMenuAnswer == 1:
             main()
         elif mainMenuAnswer == 2:
-            print("there is currently no statistics")
-            # wait 2 seconds and then go back to the menu
-            time.sleep(2)
-            mainMenu()
+            viewStatistics()
         elif mainMenuAnswer == 3:
-            print("there is currently no account")
-            # wait 2 seconds and then go back to the menu
-            time.sleep(2)
-            mainMenu()
+            viewAccount()
         elif mainMenuAnswer == 4:
-            print("there is currently no game collection")
-            # wait 2 seconds and then go back to the menu
-            time.sleep(2)
-            mainMenu()
+            viewGameCollection()
         elif mainMenuAnswer == 5:
-            print("there is currently no game collection on github")
-            # wait 2 seconds and then go back to the menu
-            time.sleep(2)
-            mainMenu()
+            viewGithub()
         elif mainMenuAnswer == 6:
-            print("thank you for playing")
             exit()
-        else:
-            print("invalid input")
-            # wait 2 seconds and then go back to the menu
-            time.sleep(2)
-            mainMenu()
-    except:
-        print("invalid input")
-        # wait 2 seconds and then go back to the menu
-        time.sleep(2)
+    except ValueError:
+        print("Please enter a number!")
         mainMenu()
 
 # welcome message
@@ -128,12 +109,21 @@ def playerAccountQuestion():
 
 # player login
 
+# dont print the password in the console when typing it in
+
 
 def login():
     print("Please enter your username")
     username = input(">>> ")
     print("Please enter your password")
     password = input(">>> ")
+    print("Please enter your password again")
+    password2 = input(">>> ")
+    if password == password2:
+        pass
+    else:
+        print("Your passwords don't match!")
+        login()
 
 # player register
 
@@ -162,6 +152,8 @@ def chooseName():
 # check if the name is already taken
 
 
+# main menu thing
+
 # choose game based on the current amount of players
 def chooseGame():
     print("Please choose a game from the list below.")
@@ -179,6 +171,85 @@ def chooseGame():
         print("there is currently no game for four players")
     elif amountPlayer == 5:
         print("there is currently no game for five players")
+
+
+def viewStatistics():
+    print("there is currently no statistics")
+    # wait 2 seconds and then go back to the menu
+    time.sleep(2)
+    mainMenu()
+
+
+def viewAccount():
+    print("your account:")
+    print("username: ", username)
+    print("password: ", password)
+    # type exit to go back to the menu
+    print("\nType exit to go back to the menu")
+    exit = input(">>> ")
+    if exit == "exit":
+        mainMenu()
+    else:
+        print("invalid input")
+        viewAccount()
+
+
+def viewGameCollection():
+    print("currntly there are theses games in the collection:")
+    print("1. Connect 4")
+    print("2. Tic Tac Toe")
+    # type exit to go back to the menu
+    print("\nType exit to go back to the menu")
+    exit = input(">>> ")
+    if exit == "exit":
+        mainMenu()
+    else:
+        print("invalid input")
+        viewGameCollection()
+
+
+def viewGithub():
+    print("the game collection is on github")
+    print("the link is:")
+    target = "https://github.com/FischLord/coding_P22/tree/main/programming/python/arcade-gamecollection"
+    print(f"\u001b]8;;{target}\u001b\\{target}\u001b]8;;\u001b\\")
+    # type exit to go back to the menu
+    print("\nType exit to go back to the menu")
+    exit = input(">>> ")
+    if exit == "exit":
+        mainMenu()
+    else:
+        print("invalid input")
+        viewGithub()
+
+
+def exit():
+    print("thank you for playing")
+    exit()
+
+# type help anywhere to get a list of commands and their description
+
+
+def help():
+    help = input(">>> ")
+    if help == "help":
+        print("help")
+        print("this is a list of commands and their description")
+        print("help - this command")
+        print("exit - exit the game")
+        print("view statistics - view the statistics")
+        print("view account - view your account")
+        print("view game collection - view the game collection")
+        print("view github - view the github page")
+        print("play - play a game")
+        print("main menu - go back to the main menu")
+        print("how many players - choose how many players you want to play with")
+        print("player account question - does all player got an account or is it a guest?")
+        print("login - player login")
+        print("register - player register")
+        print("choose name - player choose name")
+        print("choose game - choose game based on the current amount of players")
+
 
 # main function
 

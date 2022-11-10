@@ -1,18 +1,26 @@
 # python game "4 wins/connect4/4 Gewinnt" in shell
-# 07.11.2022 Leon Kohlhaußen
+# 07.11.2022-10.11.2022 Leon Kohlhaußen
 # contributors Janneck Lehmann
 
 # <<<<<<<<<<< imports >>>>>>>>>>>>>>>>>
 # https://hellocoding.de/blog/coding-language/python/farben-im-terminal
+# https://www.geeksforgeeks.org/print-colors-python-terminal/
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#
+# Copyright (c) 2020-2022, Leon Kohlhaussen, contributors Janneck Lehmann
+#
+import time
+import os
 import random  # random module to start with a random player
-from colorama import *
+from colorama import *  # colorama module to print colors in the terminal
 # there is no need of reset every color effekt in the code duo this setting
 init(autoreset=True)
 
 
 # <<<<<<<<<< variables >>>>>>>>>>>>>>>>>
-won = False
-players = ["🟡", "🔴"] 
+won = False             # variable to check if a player has won
+players = ["🟡", "🔴"]  # player 1 is yellow and player 2 is red
 gameBoard = [
             ["", "", "", "", "", "", ""],   #7 collumns and 6 rows
             ["", "", "", "", "", "", ""], 
@@ -27,8 +35,6 @@ rows = 6    #definiton of rows in the grid              ⬅️➡️
 columns = 7    #definition of collumns in the grid      ⬆️⬇️
 
 # print the board with given rows and columns
-
-
 def printGameBoard():
     for x in range(rows):
         print("\n   +----+----+----+----+----+----+----+")
@@ -51,13 +57,10 @@ def printGameBoard():
     #?? +3x or +3y or +3xy or -3xy
 
 
-
-
-# welcome message when game is started
-
+#welcome message when game is started
 def startMessage():
     print("Welcome to 4wins!")
-    print("the rules:")
+    print("The rules:")
     print("1. You can only place a stone in a column that is not full.")
     print("2. You can only put a stone in the lowest row of a column. ")
     print("3. You can only win if you have 4 stones in a row, column or diagonal.")
@@ -80,19 +83,17 @@ def switchPlayer():
         print(Fore.YELLOW + "yellow's turn")
 
 # player input for column question and validation
-
-
 def playerinput():
     while True:
         global pickedField
         print(Back.WHITE + " choose a column")
         pickedField = input(Fore.BLUE + ">>> ")
-        print("you chose column", pickedField)
         try:
             pickedField = int(pickedField)
             if pickedField > 8 or pickedField < 1:
                 print(Fore.RED + "please enter a number between 1 and 8")
             else:
+                print("you chose column", pickedField)
                 break
         except ValueError:
             print(Fore.RED + "please enter a number")
@@ -101,8 +102,6 @@ def playerinput():
 
 
             
-
-
 # player choose a column and the stone is placed in the lowest row of the column if the column is full the player has to choose another column
 def placeStone():
     for x in range(rows):
@@ -116,9 +115,7 @@ def placeStone():
             gameBoard[x][pickedField-1] = players[0]
             break
     
-
 # <<<<<<<<<<<<<<< wincheck >>>>>>>>>>>>>>>>>>
-
         
 # check if a row has 4 stones in a row return win true
 def rowCheck():
@@ -162,7 +159,12 @@ def drawCheck():
         for y in range(columns):
             if gameBoard[x][y] == "🟡" or gameBoard[x][y] == "🔴":
                 return True
-
+def winVarCheck():
+    drawCheck()
+    diagonalCheck1()
+    diagonalCheck2()
+    columnCheck()
+    rowCheck()
 
 # check who won the game and print the winner
 #def winMessage():
@@ -173,19 +175,23 @@ def drawCheck():
 
 # check if the game is won and print the winner
 def winCheck():
+    global won
+    winVarCheck()
     if rowCheck() == True or columnCheck() == True or diagonalCheck1() == True or diagonalCheck2() == True:
         if players[0] == "🟡":
             print(Fore.YELLOW + "yellow won")
         else:
             print(Fore.RED + "red won")
-        return won == True
+        won = True
     else:
-        return won == False
+        won = False
 
 #not finished yet
 def mainGame():
+    os.system("cls")
     startMessage()
     randomPlayer()
+    printGameBoard()
     while True:
         playerinput()
         placeStone()
@@ -200,3 +206,6 @@ def mainGame():
         switchPlayer()
 
 mainGame()
+
+# startcommand
+# & C:/Users/leonk/AppData/Local/Programs/Python/Python310/python.exe c:/home/coding_P22/programming/python/connect4/connect4.py

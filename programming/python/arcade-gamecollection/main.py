@@ -3,8 +3,12 @@
 # game collection menu/overlay
 
 # import modules
+from login_modul.login import *
 import time
 import os
+from colorama import *          # colorama module to print colors in the terminal
+# there is no need of reset every color effekt in the code duo this setting
+init(autoreset=True)
 
 
 # main menu
@@ -80,12 +84,31 @@ def howManyPlayers():
         howManyPlayers()
 
 
-# does all player got an account or is it a guest?
+# create a list of all gamers
+def addPresentPlayer(name):
+    presentPlayer.append(name)
 
 
+def inputInformation():
+    global username, password
+    username = input("please enter your username: ")
+    password = input("please enter your password: ")
+
+    # guest choose name
+
+
+def chooseName():
+    print("Please enter your name")
+    username = input(">>> ")
+    print("Your name is", username)
+    addPresentPlayer(username)
+
+
+# does the player have an account? or is he a guest?
 def playerAccountQuestion():
-    for x in range(amountPlayer):
-        print("Player", x+1,
+    global xAmountPlayer
+    while xAmountPlayer < amountPlayer:
+        print("Player", xAmountPlayer+1,
               "do you have an account, or do you want to play as a guest?")
         print("1. I have an account")
         print("2. I want to create an account")
@@ -94,20 +117,32 @@ def playerAccountQuestion():
         try:
             playerAnswer = int(playerAnswer)
             if playerAnswer == 1:
-                login()
+                inputInformation()
+                while not login(username, password):
+                    inputInformation()
+
+                addPresentPlayer(username)
+                xAmountPlayer = xAmountPlayer + 1
             elif playerAnswer == 2:
-                register()
+                if register():
+                    inputInformation()
+                    while not login(username, password):
+                        inputInformation()
+                    addPresentPlayer(username)
+                    xAmountPlayer = xAmountPlayer + 1
             elif playerAnswer == 3:
                 chooseName()
+                xAmountPlayer = xAmountPlayer+1
+            else:
+                print("You have to choose between possibility 1, 2 or 3")
+                playerAccountQuestion()
         except ValueError:
             print("Please enter a number!")
             playerAccountQuestion()
-        except IndexError():
-            print(Fore.RED + "please enter a number between 1 and 3")
+
 
 # make it possible to tik an answer with arrow keys
 
-# player login
 
 # dont print the password in the console when typing it in
 
@@ -155,6 +190,7 @@ def chooseName():
 # main menu thing
 
 # choose game based on the current amount of players
+# you could give the games an tag like "2p" or "3p" and then the game will only be shown if the amount of players is the same as the tag
 def chooseGame():
     print("Please choose a game from the list below.")
     if amountPlayer == 1:
@@ -255,10 +291,15 @@ def help():
 
 
 def main():
+    global presentPlayer, xAmountPlayer
+# ------------starting game variables----------------
+    presentPlayer = []
+    xAmountPlayer = 0
+# ---------------------------------------------------
     welcomeMessage()
     howManyPlayers()
     playerAccountQuestion()
     chooseGame()
 
 
-mainMenu()
+main()

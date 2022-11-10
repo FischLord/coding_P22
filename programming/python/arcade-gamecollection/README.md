@@ -1,3 +1,5 @@
+![Logo](https://i.ibb.co/FXFpvz6/p22matelogo.jpg)
+
 # Arcade Game Collection
 
 Some great oldschool Arcade games bundled in the console
@@ -21,6 +23,5 @@ Answer
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
-![Logo](<![Logo](https://i.ibb.co/FXFpvz6/p22matelogo.jpg)>)
 
 ## License

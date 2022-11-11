@@ -97,11 +97,10 @@ def inputInformation():
     # guest choose name
 
 
-def chooseName():
-    print("Please enter your name")
-    username = input(">>> ")
-    print("Your name is", username)
-    addPresentPlayer(username)
+def nameGuest():
+    guestCount = guestCount + 1
+    guestName = "Guest" + guestCount
+    addPresentPlayer(guestName)
 
 
 # does the player have an account? or is he a guest?
@@ -131,7 +130,7 @@ def playerAccountQuestion():
                     addPresentPlayer(username)
                     xAmountPlayer = xAmountPlayer + 1
             elif playerAnswer == 3:
-                chooseName()
+                nameGuest()
                 xAmountPlayer = xAmountPlayer+1
             else:
                 print("You have to choose between possibility 1, 2 or 3")
@@ -139,55 +138,11 @@ def playerAccountQuestion():
         except ValueError:
             print("Please enter a number!")
             playerAccountQuestion()
-
+    print("You are playing with the following players:")
+    print(presentPlayer)
 
 # make it possible to tik an answer with arrow keys
 
-
-# dont print the password in the console when typing it in
-
-
-def login():
-    print("Please enter your username")
-    username = input(">>> ")
-    print("Please enter your password")
-    password = input(">>> ")
-    print("Please enter your password again")
-    password2 = input(">>> ")
-    if password == password2:
-        pass
-    else:
-        print("Your passwords don't match!")
-        login()
-
-# player register
-
-
-def register():
-    print("Please enter your username")
-    username = input(">>> ")
-    print("Please enter your password")
-    password = input(">>> ")
-    print("Please enter your password again")
-    password2 = input(">>> ")
-    if password == password2:
-        pass
-    else:
-        print("Your passwords don't match!")
-        register()
-
-# player choose name
-
-
-def chooseName():
-    print("Please enter your name")
-    nameGuest = input(">>> ")
-    print("Your name is", nameGuest)
-
-# check if the name is already taken
-
-
-# main menu thing
 
 # choose game based on the current amount of players
 # you could give the games an tag like "2p" or "3p" and then the game will only be shown if the amount of players is the same as the tag
@@ -291,10 +246,11 @@ def help():
 
 
 def main():
-    global presentPlayer, xAmountPlayer
+    global presentPlayer, xAmountPlayer, guestCount
 # ------------starting game variables----------------
     presentPlayer = []
     xAmountPlayer = 0
+    guestCount = 0
 # ---------------------------------------------------
     welcomeMessage()
     howManyPlayers()

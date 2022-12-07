@@ -4,7 +4,7 @@
 import java.net.*;
 import java.io.*;
 
-public class basisServer {
+public class basisServer implements Runnable {
     // die Eigenschaften -----------------------------
     // damit ist es jeweils (mindestens) eine Agregation
     // private --- Stichwort Datenkapselung
@@ -26,6 +26,11 @@ public class basisServer {
         // System.out.println("Server wartet am Port " + port + "auf Anfragen");
     }
     // ! die Methoden ----------------------------------
+
+    // die Methode, die über den Prozess gestartet wird
+    public void run() {
+        permanenteVerbindungMitClient();
+    }
 
     void verbindungMitClient() {
         try {
